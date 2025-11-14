@@ -1,81 +1,50 @@
-# HelloApp - React Native Android Demo
+# HelloApp - React Native with Expo
 
-A simple React Native app to get you started with mobile development on Android!
+A simple React Native app using Expo to get you started with mobile development on Android!
 
-## Prerequisites
+> **Important:** This was developed in Claude Code's web environment. To run it on your phone, you'll need to clone this repo to your actual laptop and run it from there.
 
-Before you begin, make sure you have the following installed:
+## Quick Start
 
-1. **Node.js** (v18 or newer)
-2. **Android Studio** with:
-   - Android SDK
-   - Android SDK Platform 35
-   - Android Build Tools
-   - Android Emulator (optional, for testing without a physical device)
-3. **Java Development Kit (JDK)** 17 or newer
+### Prerequisites
 
-## Setup Instructions
+- **On your laptop:** Node.js 18 or newer
+- **On your phone:** Install "Expo Go" (free from Google Play Store)
+- Both devices on the **same WiFi network**
 
-### 1. Install Dependencies
+### Step 1: Clone to Your Laptop
 
-First, install the npm packages:
+First, clone this repository to your **actual laptop** (not the Claude Code web environment):
+
+```bash
+git clone <your-repo-url>
+cd ReactNative
+```
+
+### Step 2: Install Dependencies
 
 ```bash
 npm install
 ```
 
-This will install all the necessary dependencies including React Native and its tools.
-
-### 2. Set Up Your Android Phone
-
-To run the app on your Android phone, you need to enable Developer Mode:
-
-1. Open **Settings** on your Android device
-2. Scroll to **About Phone** (or **About Device**)
-3. Find **Build Number** and tap it 7 times
-4. You should see a message saying "You are now a developer!"
-5. Go back to Settings and open **Developer Options**
-6. Enable **USB Debugging**
-7. Connect your phone to your computer via USB cable
-8. A prompt will appear on your phone asking to "Allow USB debugging" - tap **Allow**
-
-### 3. Verify Your Device is Connected
-
-Run this command to check if your device is detected:
-
-```bash
-adb devices
-```
-
-You should see your device listed. If not:
-- Make sure USB debugging is enabled
-- Try a different USB cable
-- Install/update ADB drivers for your device
-
-### 4. Start the Metro Bundler
-
-Metro is the JavaScript bundler for React Native. Start it with:
+### Step 3: Start the Development Server
 
 ```bash
 npm start
 ```
 
-Keep this terminal window open - Metro needs to run while you're developing.
+This will show you a QR code in the terminal.
 
-### 5. Run the App on Your Phone
+### Step 4: Open on Your Phone
 
-In a new terminal window, run:
+**Make sure your laptop and phone are on the same WiFi!**
 
-```bash
-npm run android
-```
+1. Open the "Expo Go" app on your phone
+2. Tap "Scan QR code"
+3. Point your camera at the QR code in your terminal
+4. The app will load automatically!
 
-This command will:
-- Build the Android app
-- Install it on your connected device
-- Launch the app automatically
-
-The first build may take a few minutes. Subsequent builds will be faster.
+**That's it!** No USB cable needed, no Android Studio required.
 
 ## What You'll See
 
@@ -112,54 +81,60 @@ From the menu, you can:
 
 ## Troubleshooting
 
-### "command not found: adb"
+### "Unable to connect to development server"
 
-ADB (Android Debug Bridge) is not in your PATH. You need to:
-1. Find your Android SDK location (usually `~/Android/Sdk` on Mac/Linux or `%LOCALAPPDATA%\Android\Sdk` on Windows)
-2. Add `platform-tools` to your PATH:
-   - On Mac/Linux: Add to `~/.bashrc` or `~/.zshrc`:
-     ```bash
-     export ANDROID_HOME=$HOME/Android/Sdk
-     export PATH=$PATH:$ANDROID_HOME/platform-tools
-     ```
-   - On Windows: Add `%LOCALAPPDATA%\Android\Sdk\platform-tools` to your PATH environment variable
+This usually means your laptop and phone aren't on the same network.
 
-### Build Failed
+**Solutions:**
+- Ensure both devices are on the **same WiFi network**
+- Disable VPN on both devices
+- Don't use guest WiFi (they often isolate devices)
+- Try restarting your router
+- Check if your firewall is blocking connections
 
-If the build fails:
-1. Make sure you have Android SDK Platform 35 installed
-2. Check that `ANDROID_HOME` environment variable is set correctly
-3. Try cleaning the build: `cd android && ./gradlew clean && cd ..`
-4. Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
+### QR Code Won't Scan
 
-### Device Not Detected
+**Solutions:**
+- Make sure the QR code is fully visible
+- Increase screen brightness
+- Use "Enter URL manually" in Expo Go instead
+- The URL format is: `exp://192.168.X.X:8081`
 
-- Enable USB debugging on your phone
-- Try revoking USB debugging authorizations in Developer Options, then reconnect
-- Install manufacturer-specific USB drivers
-- Try a different USB cable (some cables are charge-only)
+### App Won't Load or Crashes
 
-### Metro Bundler Issues
+**Solutions:**
+- In Expo Go, go to Settings → Clear cache
+- Restart the Expo Go app
+- Stop the dev server (`Ctrl+C`) and run `npm start` again
+- Delete `node_modules` folder and run `npm install` again
 
-If Metro crashes or has issues:
-- Kill existing Metro processes: `npx react-native start --reset-cache`
-- Clear watchman: `watchman watch-del-all`
+### "Network request failed"
+
+This means your phone can't reach your laptop.
+
+**Solutions:**
+- Confirm you're on the same WiFi network
+- Check if your router has "AP Isolation" enabled (disable it)
+- Try using your laptop's IP address manually in Expo Go
+
+## Why Expo?
+
+Expo makes React Native development super easy:
+- ✓ **No Android Studio needed** - Just Node.js
+- ✓ **No USB cable required** - Connect over WiFi
+- ✓ **Instant updates** - See changes immediately
+- ✓ **Easy sharing** - Send a QR code to anyone to test
+- ✓ **Access device features** - Camera, GPS, notifications, etc.
 
 ## Project Structure
 
 ```
 HelloApp/
-├── App.tsx              # Main app component
-├── index.js             # Entry point
+├── App.tsx              # Main app component (EDIT THIS!)
+├── app.json             # Expo configuration
 ├── package.json         # Dependencies and scripts
-├── android/             # Android native code
-│   ├── app/
-│   │   ├── src/main/
-│   │   │   ├── java/com/helloapp/  # Java/Kotlin files
-│   │   │   └── AndroidManifest.xml
-│   │   └── build.gradle            # App-level Gradle config
-│   └── build.gradle                # Project-level Gradle config
-└── node_modules/        # Installed dependencies (not in git)
+├── android/             # Android native files (can ignore with Expo)
+└── node_modules/        # Installed packages (auto-generated)
 ```
 
 ## Next Steps
@@ -174,18 +149,16 @@ Now that you have a working React Native app, you can:
 
 ## Useful Commands
 
-- `npm start` - Start Metro bundler
-- `npm run android` - Build and run on Android
-- `npm test` - Run tests
-- `adb devices` - List connected devices
-- `adb logcat` - View device logs
+- `npm start` - Start Expo development server
+- `npm run android` - Open on Android emulator (requires Android Studio)
+- `npm run web` - Run in web browser
 
 ## Resources
 
 - [React Native Documentation](https://reactnative.dev/)
-- [React Native Tutorial](https://reactnative.dev/docs/tutorial)
+- [Expo Documentation](https://docs.expo.dev/)
+- [Expo Go App](https://expo.dev/client)
 - [React Documentation](https://react.dev/)
-- [Android Developer Guide](https://developer.android.com/)
 
 ## License
 
