@@ -1,13 +1,14 @@
 import React from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
   useColorScheme,
 } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { WeatherDisplay } from './components/WeatherDisplay';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,35 +19,31 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar style={isDarkMode ? 'light' : 'dark'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.container}>
-          <Text style={[styles.title, {color: isDarkMode ? '#fff' : '#000'}]}>
-            🎉 Hello, React Native!
-          </Text>
-          <Text style={[styles.subtitle, {color: isDarkMode ? '#d1d5db' : '#4b5563'}]}>
-            Welcome to your first React Native app
-          </Text>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>✨ You're all set!</Text>
-            <Text style={styles.cardText}>
-              This is a simple React Native app running on your Android phone.
+    <SafeAreaProvider>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={backgroundStyle}>
+          <View style={styles.container}>
+            <Text style={[styles.title, {color: isDarkMode ? '#fff' : '#000'}]}>
+              Weather App
             </Text>
-            <Text style={styles.cardText}>
-              Edit App.tsx to change this screen and see live updates.
+            <Text style={[styles.subtitle, {color: isDarkMode ? '#d1d5db' : '#4b5563'}]}>
+              Current weather and forecast
             </Text>
+
+            <WeatherDisplay latitude={59.9100} longitude={10.7600} />
+
+            <View style={[styles.infoBox, {backgroundColor: isDarkMode ? '#374151' : '#e5e7eb'}]}>
+              <Text style={[styles.infoText, {color: isDarkMode ? '#d1d5db' : '#374151'}]}>
+                Currently showing weather for Oslo.
+              </Text>
+            </View>
           </View>
-          <View style={[styles.infoBox, {backgroundColor: isDarkMode ? '#374151' : '#e5e7eb'}]}>
-            <Text style={[styles.infoText, {color: isDarkMode ? '#d1d5db' : '#374151'}]}>
-              💡 Tip: Shake your device to open the developer menu
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
