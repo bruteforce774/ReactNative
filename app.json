@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "android": {
-      "package": "com.helloapp"
+      "package": "com.weatherapp"
     },
     "web": {
       "bundler": "metro"
